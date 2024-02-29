@@ -4,16 +4,7 @@ pipeline {
       label 'docker-agent'
     }
   }
-
-  triggers {
-    pollSCM '*/5 * * * *'
-  }
-
-  tools {
-    maven 'Default'
-    dockerTool 'Default'
-  }
-
+  
   stages {
     stage ('mvn test') {
       steps {
