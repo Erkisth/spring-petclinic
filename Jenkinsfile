@@ -1,9 +1,6 @@
 pipeline {
   agent {
-    docker {
-      image 'jenkins/agent:latest-jdk17'
       label 'docker-agent'
-    }
   }
 
   tools {
