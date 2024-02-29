@@ -5,7 +5,6 @@ pipeline {
 
   tools {
     maven 'Default'
-    dockerTool 'Default'
   }
   
   stages {
