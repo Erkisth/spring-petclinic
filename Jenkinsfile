@@ -23,12 +23,16 @@ pipeline {
     }
     stage ('docker build image') {
       steps {
-        def petclinicImage = docker.build("nexus:8082/spring-petclinic:buildv00${BUILD_NUMBER}")
+        script {
+          def petclinicImage = docker.build("nexus:8082/spring-petclinic:buildv00${BUILD_NUMBER}")
+        }
       }
     }
     stage ('docker push to nexus') {
       steps {
-        petclinicImage.push("nexus:8082/spring-petclinic:buildv00${BUILD_NUMBER}")
+        script {
+          petclinicImage.push("nexus:8082/spring-petclinic:buildv00${BUILD_NUMBER}")
+        }
       }
     }
   }
