@@ -4,6 +4,11 @@ pipeline {
       label 'docker-agent'
     }
   }
+
+  tools {
+    maven 'Default'
+    dockerTool 'Default'
+  }
   
   stages {
     stage ('mvn test') {
@@ -18,20 +23,12 @@ pipeline {
     }
     stage ('docker build image') {
       steps {
-        script {
-          docker.WithRegistry('http://nexus:8082', 'f2fdbeda-e7eb-4ad9-bc6a-66017f108b94') {
-            def petclinicImage = docker.build("spring-petclinic:buildv00${BUILD_NUMBER}")
-          }
-        }
+        sh 'docker build -t nexus:8082/spring-petclinic:buildv00${BUILD_NUMBER} .'
       }
     }
     stage ('docker push to nexus') {
       steps {
-        script {
-          docker.WithRegistry('http://nexus:8082', 'f2fdbeda-e7eb-4ad9-bc6a-66017f108b94') {
-            petclinicImage.push()
-          }
-        }
+        sh 'docker push nexus:8082/spring-petclinic:buildv00${BUILD_NUMBER}'
       }
     }
   }
