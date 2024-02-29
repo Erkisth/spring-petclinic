@@ -28,7 +28,7 @@ pipeline {
     stage ('docker build image') {
       steps {
         script {
-          docker.WithRegistry('http://nexus:8082') {
+          docker.WithRegistry('http://nexus:8082', 'f2fdbeda-e7eb-4ad9-bc6a-66017f108b94') {
             def petclinicImage = docker.build("spring-petclinic:buildv00${BUILD_NUMBER}")
           }
         }
