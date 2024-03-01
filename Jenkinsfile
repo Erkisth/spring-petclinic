@@ -9,15 +9,10 @@ pipeline {
   }
   
   stages {
-    stage ('mvn build jar') {
-      steps {
-        sh 'mvn -B -DskipTests clean package'
-      }
-    }
     stage ('docker build image') {
       steps {
         script {
-          sudo usermod -aG docker jenkins
+          sh 'sudo usermod -aG docker jenkins'
           docker.withServer('tcp://docker:2376', '7605bcdb-2f4f-4c49-a82b-ee1718924a2f') {
             def petclinicImage = docker.build("nexus:8082/spring-petclinic:buildv00${BUILD_NUMBER}")
           }
