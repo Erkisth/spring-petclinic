@@ -7,6 +7,16 @@ pipeline {
   }
   
   stages {
+    stage ('mvn test') {
+      steps {
+        sh 'mvn -B clean test'
+      }
+    }
+    stage ('mvn build jar') {
+      steps {
+        sh 'mvn -B -DskipTests clean package'
+      }
+    }
     stage ('docker build image') {
       steps {
         script {
