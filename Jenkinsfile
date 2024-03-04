@@ -8,11 +8,17 @@ pipeline {
   
   stages {
     stage ('mvn test') {
+      agent {
+        label 'docker-agent'
+      }
       steps {
         sh 'mvn -B clean test'
       }
     }
     stage ('mvn build jar') {
+      agent {
+        label 'docker-agent'
+      }
       steps {
         sh 'mvn -B -DskipTests clean package'
       }
