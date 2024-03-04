@@ -29,7 +29,7 @@ pipeline {
         unstash 'package'
         script {
           docker.withServer('tcp://docker:2376', '7605bcdb-2f4f-4c49-a82b-ee1718924a2f') {
-            docker.withRegistry('http://nexus:8082', '') {
+            docker.withRegistry('http://nexus:8082', 'f2fdbeda-e7eb-4ad9-bc6a-66017f108b94') {
               def petclinicImage = docker.build("spring-petclinic:buildv00${BUILD_NUMBER}")
               petclinicImage.push()
             }
