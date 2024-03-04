@@ -21,7 +21,7 @@ pipeline {
       }
       steps {
         sh 'mvn -B -DskipTests clean package'
-        stash includes: './target/spring-petclinic*.jar', name: 'package'
+        stash includes: 'target/*.jar', name: 'package'
       }
     }
     stage ('docker build image') {
