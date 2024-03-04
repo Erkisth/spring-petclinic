@@ -21,10 +21,12 @@ pipeline {
       }
       steps {
         sh 'mvn -B -DskipTests clean package'
+        stash includes: '/target/spring-petclinic-*.jar', name: 'package'
       }
     }
     stage ('docker build image') {
       steps {
+        unstash 'package'
         script {
           docker.withServer('tcp://docker:2376', '7605bcdb-2f4f-4c49-a82b-ee1718924a2f') {
             def petclinicImage = docker.build("nexus:8082/spring-petclinic:buildv00${BUILD_NUMBER}")
