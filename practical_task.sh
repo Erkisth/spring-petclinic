@@ -27,7 +27,7 @@ docker push us-central1-docker.pkg.dev/${PROJECT_NAME}/script-repo/spring-petcli
 
 gcloud compute instances create-with-container script-instance \
     --machine-type=e2-medium \
-    --zone=us-central1-a
+    --zone=us-central1-a \
     --network=script-network \
     --subnet=script-subnet-1 \
     --container-image=us-central1-docker.pkg.dev/${PROJECT_NAME}/script-repo/spring-petclinic:latest \
